@@ -1,0 +1,76 @@
+■MySQLメモ
+（一連のコマンドを一通り実行してみましょう。）
+
+//MySQL接続
+mysql -u root -p
+Enter password:****
+
+//データベース一覧表示
+show databases;
+//データベース作成
+create database studentmanagement_taimen;
+//使用データベース指定
+use studentmanagement_taimen;
+//テーブル作成
+create table student(name varchar(100), age int) DEFAULT CHARSET=utf8;
+//テーブル一覧表示
+show tables;
+
+//レコード作成
+insert student values('YamadaTarou',20);
+insert student values('TanakaJirou',25);
+insert student values('SuzukiSaburou',30);
+//レコード検索
+select * from student;
+//レコード更新
+update student set age = '21' where name = 'YamadaTarou';
+update student set age = '26' where name = 'TanakaJirou';
+update student set age = '31' where name = 'SuzukiSaburou';
+//レコード検索
+select * from student;
+//レコード削除
+delete from student where name = 'YamadaTarou';
+//レコード検索
+select * from student;
+
+//レコード件数
+select count(*) from student;
+//レコードの値の合計
+select sum(age) from student;
+
+//テーブル定義表示
+desc student;
+
+//カラム追加
+alter table student add column memo varchar(40) after age;
+
+//レコード追加（memo対応）
+insert student values('YamadaTarou',20,'メモ');
+//レコード検索
+select * from student;
+
+//カラム更新
+alter table student modify memo varchar(50);
+//カラム更新（名前）
+alter table student rename column memo to bikou;
+//テーブル定義表示
+desc student;
+
+//カラム削除
+alter table student drop column bikou;
+//テーブル定義表示
+desc student;
+
+//テーブルを空にする
+truncate student;
+//テーブルを削除する
+drop table student;
+//データベースを削除する
+drop database studentmanagement_taimen;
+
+//データベース一覧表示
+show databases;
+
+
+//MySQL終了
+quit
