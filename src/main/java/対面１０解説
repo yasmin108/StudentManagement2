@@ -1,0 +1,124 @@
+-------------------------------------------------------------------------------
+■課題１
+Lombokを活用してJavaクラスを簡潔に書き換えましょう。
+Javaクラスに含まれる冗長なコードを、Lombokのアノテーションを使って書き換えましょ
+う（別紙参照）。
+-------------------------------------------------------------------------------
+＜解答コード＞
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Getter
+@Setter
+@ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
+public class Course {
+    private String name;
+    private String instructor;
+    private int capacity;
+}
+
+＜解説＞
+・@Getter, @Setter で全フィールドに対して getter / setter を生成
+・@NoArgsConstructor で引数なしのデフォルトコンストラクタを生成
+・@AllArgsConstructor で全フィールドを引数に持つコンストラクタを生成
+・@ToString で toString() メソッドを自動生成
+・@EqualsAndHashCode  で equals() および hashCode() メソッドを自動生成
+
+@Data を使うのも OK
+・@Data で下記アノテーションを全て実装したのと同じになる
+    @Getter, @Setter, @ToString, @EqualsAndHashCode, @RequiredArgsConstructor
+
+参考）
+Lombokが便利だなと感じたので書いてみた
+https://qiita.com/supreme0110/items/391505da8f4321736421
+
+-------------------------------------------------------------------------------
+■課題２
+以下の観点から、@Dataと@Valueの違いを説明しましょう。
+    @Dataを使うことで自動生成されるコード
+    @Valueを使うことで自動生成されるコード
+    使用用途（どのような場面に適しているか）
+-------------------------------------------------------------------------------
+◆@Data とは？
+@Data は、クラスの中の値をあとから変更する必要がある場合に使います。たとえば、
+Webアプリケーションでユーザーが自分の名前やメールアドレスを編集できるような場面
+です。
+
+このアノテーションを使うと、自動的に次のようなメソッドが生成されます：
+    値を取得する「getter」
+    値を変更する「setter」
+    オブジェクトを文字列で表現する「toString」
+    オブジェクト同士を比較する「equals」「hashCode」
+    final で定義されたフィールド変数を引数に取るコンストラクタ
+
+つまり、データの読み書きができる柔軟なクラスを簡単に作ることができます。
+
+◆@Value とは？
+一方で @Value は、クラスの中の値を一度決めたら変更しない場合に使います。
+たとえば、設定ファイルから読み込んだ内容など、「途中で変わってほしくない情報」
+が当てはまります。
+
+このアノテーションを使うと、以下のような性質を持ったクラスになります：
+    すべての値が「変更できない」（自動的に final になる）
+    setter メソッドは作られない
+    getter、toString、equals、hashCode は自動生成される
+    引数をすべて受け取るコンストラクタが自動生成される
+
+つまり、定数管理クラスを簡単に作ることができます。
+
+-------------------------------------------------------------------------------
+■課題３
+JSONデータを読み、質問に答えましょう。
+
+    {
+      "id": 101,
+      "name": "Yamada Taro",
+      "email": "taro@example.com",
+      "isActive": true,
+      "courses": [
+        {
+          "title": "Java Programming",
+          "score": 85
+        },
+        {
+          "title": "Web Development",
+          "score": 90
+        }
+      ]
+    }
+
+    1.nameの値は何を意味しているか想像してみましょう。
+    2.このデータにおいて、この学生は現在サービスを利用中ですか？退会済みですか？
+    　isActiveの値に注目して想像してみましょう。
+    3.２つ目のcourseのtitleの値を答えましょう。
+    4.このJSONデータがどんな人物情報を表していると考えられるか、およそ100文字以
+    　内で説明しましょう。
+-------------------------------------------------------------------------------
+1.  "name"の値は "Yamada Taro" という名前を意味しています。
+
+2.  "isActive" はおそらくこのデータが現在このデータの学生がサービスを利用してい
+    るかどうかを意味していると推測できます。
+    isActive が true なのでこのデータは有効、つまりサービスを利用していると想像
+    できます。
+    ただし、 isActive の値が何を意味するのかは json のみでは判断できないのであく
+    までも想像の域を出ません。
+
+3.  2つ目の course の title は "Web Development" です。
+
+4.  このJSONは「Yamada Taroという名前の学生が複数の講座を受講しており、それぞれ
+    の成績が記録されている情報」です。
+
+参考）
+ChromeでJSONデータを見やすく表示するプラグイン
+https://chromewebstore.google.com/detail/json-viewer/efknglbfhoddmmfabeihlemgekhhnabb?pli=1
+
+-------------------------------------------------------------------------------
+
