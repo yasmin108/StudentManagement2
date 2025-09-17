@@ -1,0 +1,43 @@
+//カラム変更（NOT NULLを外す　modify( varchar(36)) ）
+alter table students modify column student_id varchar(36);
+describe students;
+
+//カラム変更（NOT NULLをつける　modify( varchar(36) NOT NULL)
+alter table students modify column student_id varchar(36) not null;
+describe students;
+
+//カラム変更（プライマリキーをつける　add primary key(***)）自動的にNOT NULLになる
+alter table students add primary key(student_id);
+describe students;
+
+
+//カラム変更（カラム名変更）
+alter table students rename column name to student_name;
+describe students;
+
+//カラム変更（カラム追加）
+alter table students add column memo varchar(100) after age;
+describe students;
+
+//カラム変更（カラム削除）
+alter table students drop column memo;
+describe students;
+
+
+
+
+//テーブルを空にする
+truncate students;
+truncate students_courses;
+//テーブルを削除する
+drop table students;
+drop table students_courses;
+//データベースを削除する
+drop database studentmanagement_taimen2;
+
+//データベース一覧表示
+show databases;
+
+
+//MySQL終了
+quit
