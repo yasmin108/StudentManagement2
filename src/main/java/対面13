@@ -1,0 +1,62 @@
+-------------------------------------------------------------------------------
+■課題１
+以下のコードは、課題で実装を行った受講生の情報を編集・更新する画面を開くための
+Controllerの一部です。
+
+@GetMapping("/students/{id}")
+public String getStudent(@PathVariable Long id, Model model){
+    Student student = studentService.getStudentById(id);
+    model.addAttribute("student", student);
+return "studentForm";
+}
+
+上記のソースを基準に以下３つの改変を行い、更新画面にアクセスしたとき正常に動作す
+るかどうか、またエラーになる場合はその原因を確認しましょう。
+1.@GetMapping("/students/{id}")の{id}の部分のみを削除しましょう。
+2.メソッドの引数@PathVariable Long id の指定を削除しましょう。
+3.@GetMapping("/students/{id}")の{id}を{hoge}に変更しましょう。
+
+-------------------------------------------------------------------------------
+＜回答＞
+1.
+2.
+3.
+
+-------------------------------------------------------------------------------
+■課題２
+以下のControllerメソッドで、更新処理を行ったあとに、
+return "redirect:/studentList";を返しています。
+この記述の役割を説明し、もし、"studentList"をreturnだけした場合とどう違うのか
+を説明しましょう。
+@PostMapping("/students/update")
+public String updateStudent(@ModelAttribute Student student){
+    studentService.updateStudent(student);
+    return "redirect:/studentList";
+}
+-------------------------------------------------------------------------------
+＜回答＞
+return "redirect:/studentList";
+更新処理後に/studentListへリダイレクトする。
+これによりブラウザが新しいリクエストを発行し、URLも/studentListに変わる。
+
+return "studentList";の場合
+ビュー名studentListを直接返すだけで、リダイレクトは行われない
+そのためURLは更新処理を行ったPOSTのままで、ページ更新（F5)で再度更新処理が走ってしまう恐れがある。
+
+
+-------------------------------------------------------------------------------
+■課題３
+SQLのUPDATE文について、以下の２つの問題について回答しましょう。
+1.次のSQL文には誤りがあります。誤っている部分を指摘し、正しい文を書きましょう。
+    UPDATE students SET (name = #{name}, age = #{age}) WHERE id = #{id};
+2.UPDATE文実行時にWHEREを指定しないとどうなるかを考えましょう。実際に実行しても
+　構いませんが、その場合はテスト実行用のテーブルとデータを作成し、UPDATE文を実行
+　してみましょう。
+-------------------------------------------------------------------------------
+＜回答＞
+1.
+
+2.
+
+-------------------------------------------------------------------------------
+
